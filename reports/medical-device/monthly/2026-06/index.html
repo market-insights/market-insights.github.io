@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monthly Medical Device News Report</title>
+  <style>
+    :root {
+      --ink: #15202b;
+      --muted: #647184;
+      --line: #d9e1ec;
+      --panel: #f7f9fc;
+      --blue: #174a7c;
+      --teal: #087f8c;
+      --green: #1d7f4b;
+      --amber: #a56400;
+      --red: #a23b36;
+      --bg: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.58;
+    }
+    a { color: #145a9e; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .shell { max-width: 1180px; margin: 0 auto; padding: 28px 28px 56px; }
+    .hero {
+      border-bottom: 1px solid var(--line);
+      padding: 22px 0 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+    }
+    .hero h1 { margin: 0 0 10px; font-size: 34px; letter-spacing: 0; color: #11345b; }
+    .hero p { margin: 0; color: var(--muted); }
+    .nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .nav a {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 11px;
+      background: #fff;
+      font-size: 13px;
+      text-decoration: none;
+      color: #27445f;
+    }
+    .kpis { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 12px; margin: 22px 0; }
+    .kpi { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: var(--panel); }
+    .kpi .value { font-size: 28px; font-weight: 720; color: var(--blue); }
+    .kpi .label { color: var(--muted); font-size: 13px; }
+    section { margin: 28px 0; }
+    .section-title { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 14px; }
+    h2 { color: #123b66; font-size: 24px; margin: 0; }
+    h3 { color: #294961; margin: 0 0 8px; font-size: 17px; }
+    .narrative {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 18px 20px;
+    }
+    .narrative p { margin: 8px 0 12px; color: #34465a; }
+    .narrative ol, .narrative ul { margin: 8px 0 0; padding-left: 22px; }
+    .narrative li { margin: 9px 0; }
+    .markdown-table-wrap { overflow-x: auto; margin: 14px 0 18px; border: 1px solid var(--line); border-radius: 8px; }
+    .markdown-table { width: 100%; min-width: 900px; border-collapse: collapse; font-size: 13px; background: #fff; }
+    .markdown-table th, .markdown-table td { border-bottom: 1px solid #e3e9f0; padding: 9px 10px; text-align: left; vertical-align: top; }
+    .markdown-table th { background: #f2f5f9; color: #31465b; font-weight: 720; }
+    .markdown-table tr:last-child td { border-bottom: 0; }
+    .week-overview {
+      border-left: 4px solid var(--teal);
+      background: #f5fbfc;
+      padding: 12px 14px;
+      margin: 12px 0 16px;
+      border-radius: 0 8px 8px 0;
+      color: #31485a;
+    }
+    .week-overview h3 { font-size: 15px; color: var(--teal); margin-bottom: 4px; }
+    .week-overview p { margin: 4px 0; }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      border: 1px solid #cdd8e4;
+      background: #f9fbfd;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 13px;
+      color: #33475b;
+    }
+    .pill-muted { background: #fff; }
+    .card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .article-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(17, 52, 91, 0.05);
+    }
+    .rank {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #123b66;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .article-card h3 { font-size: 16px; line-height: 1.42; margin: 2px 0 8px; color: #14283b; }
+    .article-meta, .compact-meta { color: var(--muted); font-size: 12.5px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .badge { display: inline-flex; border-radius: 999px; padding: 3px 8px; font-size: 12px; background: #eef3f8; color: #2b4055; }
+    .category { background: #e7f0f8; color: #164b77; }
+    .relevance { background: #eef2f7; }
+    .score-max, .pack-high { background: #dff3e7; color: #176a3c; }
+    .score-high, .pack-medium { background: #e4f2f4; color: #096f78; }
+    .score-mid, .pack-low { background: #fff3dc; color: #8a5600; }
+    .score-low { background: #f5eee8; color: #8a5600; }
+    .score-none, .pack-none { background: #f1f1f1; color: #606a76; }
+    .takeaway { margin: 8px 0; font-weight: 620; }
+    .reason { color: #435161; margin: 8px 0; font-size: 14px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .chip { font-size: 12px; padding: 3px 7px; border-radius: 5px; background: #edf5ff; color: #24557f; }
+    .chip-soft { background: #f1f8f3; color: #2b6c40; }
+    .read-link { display: inline-block; margin-top: 10px; font-size: 13px; }
+    .week-section { border-top: 1px solid var(--line); padding-top: 22px; }
+    .week-header { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 12px; }
+    .eyebrow { color: var(--teal); text-transform: uppercase; letter-spacing: 0.02em; font-size: 12px; font-weight: 700; }
+    .week-count { background: #eef3f8; color: #405368; border-radius: 999px; padding: 5px 10px; font-size: 12px; white-space: nowrap; }
+    .subhead { margin: 12px 0; color: #123b66; }
+    .other-news { margin-top: 14px; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; background: #fbfcfe; }
+    .other-news summary { cursor: pointer; font-weight: 700; color: #234560; }
+    .other-news ul { padding-left: 18px; }
+    .compact-article { margin: 10px 0; }
+    .compact-article p { margin: 3px 0 0; color: #3f4c59; }
+    .empty-note { color: var(--muted); background: var(--panel); border: 1px dashed #cbd6e2; border-radius: 8px; padding: 14px; }
+    .risks { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: #fff; }
+    .appendix-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .appendix-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+    .appendix-table th, .appendix-table td { border-bottom: 1px solid #e3e9f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+    .appendix-table th { background: #f2f5f9; color: #31465b; position: sticky; top: 0; }
+    footer { color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); margin-top: 36px; padding-top: 14px; }
+    @media (max-width: 820px) {
+      .shell { padding: 18px 16px 40px; }
+      .hero { grid-template-columns: 1fr; }
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+      .card-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+    }
+    @media print {
+      .nav { display: none; }
+      .article-card, .other-news, .risks { break-inside: avoid; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <h1>Monthly Medical Device News Report</h1>
+        <p>2026-06-01 至 2026-06-30 · Generated 2026-07-16T14:31:56+08:00</p>
+        <div class="nav">
+          <a href="#top-opportunities">Top Opportunities</a>
+          <a href="#executive-summary">Executive Summary</a>
+          <a href="#weeks">Week-by-Week</a>
+          <a href="#categories">Categories</a>
+          <a href="#watchlists">Watchlists</a>
+          <a href="#risks">Risks</a>
+          <a href="#appendix">Appendix</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="kpis">
+      <div class="kpi"><div class="value">46</div><div class="label">Articles included</div></div>
+      <div class="kpi"><div class="value">5</div><div class="label">Weekly sections</div></div>
+      <div class="kpi"><div class="value">9</div><div class="label">Amcor score >= 4</div></div>
+      <div class="kpi"><div class="value">2</div><div class="label">High packaging relevance</div></div>
+    </section>
+
+    
+    <section id="executive-summary" class="narrative">
+      <div class="section-title"><h2>Executive Summary 月度核心总结</h2></div>
+      <p>本月医疗器械及医疗耗材行业动态活跃，对 Amcor 医疗器械包装业务有以下几点关键启示：</p>
+<p>*   <strong>强信号：包装产能升级与扩张</strong>。强生视觉投资超10亿美元扩建眼科产品基地，明确提及升级制造与包装产能，这为 Amcor 等包装供应商提供了直接的高价值业务机会。</p>
+<p>*   <strong>确定性增量机会：耗材集采放量与产能扩建</strong>。冠脉支架第二轮国采接续采购量达273万个，同比大增155%；国产外科缝线龙头百迈科计划扩产至655万根。明确的放量将直接拉动对无菌包装、顶头袋、纸塑袋等产品的需求。</p>
+<p>*   <strong>行业安全警示：包装缺陷的严重后果</strong>。Exactech 因包装缺少 EVOH 阻氧层导致产品召回并破产的案例，深刻揭示了无菌包装完整性对医疗器械安全和公司存亡的关键作用，强化了高质量包装的不可替代性。</p>
+<p>*   <strong>潜在增长点：一次性耗材商业化与出海</strong>。普生医疗（一次性内窥镜）、星锐医疗（一次性切口负压装置）等企业通过IPO或融资加速商业化扩产，国产 CGM 海外销售暴涨超200%，为上游无菌包装市场注入增长潜力。</p>
+<p>*   <strong>市场结构性变化：国产替代深化</strong>。从冠脉支架、心脏起搏器到高频电刀，本月亮相了多起大规模集采，国产企业份额显著提升，其产能扩张和供应链本地化可能带来新的包装供应商合作机会。</p>
+<p>*   <strong>资本活跃度：并购与融资驱动产业整合</strong>。美敦力5.5亿美元、威高血净85亿元、迈普医学3.35亿元等多起重大并购，以及多起亿级融资，显示出资本对血管介入、神经介入等赛道的持续看好，其产品整合和商业化将逐步释放包装需求。</p>
+    </section>
+    
+
+    <section id="top-opportunities">
+      <div class="section-title">
+        <h2>Top Amcor Opportunities</h2>
+      </div>
+      <div class="card-grid">
+      <article class="article-card">
+        <div class="rank">1</div>
+        <div class="article-main">
+          <div class="article-meta">思宇MedTech · 2026-06-19</div>
+          <h3>强生10亿美元加码眼科产能，全球制造布局再升级</h3>
+          
+      <div class="badges">
+        <span class="badge category">产能扩张</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-high">Packaging high</span>
+      </div>
+    
+          <p class="takeaway">强生加码眼科产能，带动包装需求，给国内医疗器械包装企业带来新机会。</p>
+          <p class="reason">文章明确提及升级包装产能，隐形眼镜和IOL生产需无菌包装、托盒、成型膜等，强生是Amcor重要客户，产能扩张可能增加包装需求。</p>
+          <div class="chips"><span class="chip">强生</span><span class="chip chip-soft">包装产能</span><span class="chip chip-soft">制造与包装</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/mrUNVzU4xuHbKc2T4Y-5wg" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">2</div>
+        <div class="article-main">
+          <div class="article-meta">思宇MedTech · 2026-06-17</div>
+          <h3>北交所IPO过会！国产可吸收外科缝线企业冲刺上市</h3>
+          
+      <div class="badges">
+        <span class="badge category">耗材上市与注册审批</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-high">Packaging high</span>
+      </div>
+    
+          <p class="takeaway">百迈科IPO扩产400万根缝线，为上游无菌包装企业带来确定性增量机会。</p>
+          <p class="reason">高值耗材缝线产能大幅扩张（+400万根），需配套无菌包装（如头袋、纸塑袋）；集采放量可能进一步拉动包装需求。</p>
+          <div class="chips"><span class="chip">海南百迈科医疗科技股份有限公司</span><span class="chip chip-soft">无菌屏障系统</span><span class="chip chip-soft">无菌包装</span><span class="chip chip-soft">医疗耗材包装</span><span class="chip chip-soft">产能扩张</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/71NbQOxbjdhvUjdbKAl2-Q" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">3</div>
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-10</div>
+          <h3>【首发】巴泰医疗完成近2亿元D轮融资，加速泛血管介入创新器械商业化和全球化</h3>
+          
+      <div class="badges">
+        <span class="badge category">融资并购</span>
+        <span class="badge relevance">Relevance 19</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">巴泰医疗完成近2亿元融资，推进耗材商业化与产能扩建，可能拉动无菌包装需求。</p>
+          <p class="reason">文章提及血管介入耗材商业化放量、集采中标后放量、智能生产基地拓建，可能增加无菌包装、导管鞘包装等需求，但未直接提及包装材料。</p>
+          <div class="chips"><span class="chip">巴泰医疗</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/yhxAWQOfIcS0rsQXVhw9XA" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">4</div>
+        <div class="article-main">
+          <div class="article-meta">赛柏蓝器械 · 2026-06-24</div>
+          <h3>拟募资7亿，国产一次性内窥镜冲刺IPO</h3>
+          
+      <div class="badges">
+        <span class="badge category">医疗器械</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">普生医疗冲刺科创板，扩产一次性内窥镜，上游包装企业应关注其产能释放带来的包装采购机会。</p>
+          <p class="reason">一次性内窥镜属于高值医疗耗材，需要无菌屏障包装；公司IPO募资扩产将增加一次性内窥镜产量，可能带动对顶头袋、成型膜、吸塑盒等无菌包装材料的需求，但文章未明确提及包装形式或供应商。</p>
+          <div class="chips"><span class="chip">珠海普生医疗科技股份有限公司</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/RuX6mVbUxuf_gP8tHzplgw" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">5</div>
+        <div class="article-main">
+          <div class="article-meta">思宇MedTech · 2026-06-23</div>
+          <h3>拟募资7亿！国产一次性内窥镜企业冲刺IPO</h3>
+          
+      <div class="badges">
+        <span class="badge category">医疗器械</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">国产一次性内窥镜企业普生医疗冲刺IPO，扩产有望带动配套无菌包装需求。</p>
+          <p class="reason">文章未直接提及包装，但公司一次性内窥镜产品（一次性无菌耗材）商业化放量及产能建设，可能显著增加灭菌袋、成型膜等无菌包装材料需求。</p>
+          <div class="chips"><span class="chip">{&#x27;name&#x27;: &#x27;珠海普生医疗科技股份有限公司&#x27;, &#x27;role&#x27;: &#x27;发行主体&#x27;, &#x27;country&#x27;: &#x27;中国&#x27;}</span><span class="chip">{&#x27;name&#x27;: &#x27;波士顿科学&#x27;, &#x27;role&#x27;: &#x27;竞争对手&#x27;, &#x27;country&#x27;: &#x27;美国&#x27;}</span><span class="chip">{&#x27;name&#x27;: &#x27;中信证券&#x27;, &#x27;role&#x27;: &#x27;保荐机构&#x27;, &#x27;country&#x27;: &#x27;中国&#x27;}</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/_u9VEpYneUu7QyyFGpUbpw" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">6</div>
+        <div class="article-main">
+          <div class="article-meta">MedTrend医趋势 · 2026-06-18</div>
+          <h3>最新支架国采中选结果：外资全部&quot;留场&quot;，但大赢家是定价逻辑</h3>
+          
+      <div class="badges">
+        <span class="badge category">高值耗材集采</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">冠脉支架集采放量，价格回升，利好包装需求。</p>
+          <p class="reason">冠脉支架集采放量，采购量273万个，这些高值耗材需要无菌包装；但文章未提及具体包装材料或供应商。</p>
+          <div class="chips"><span class="chip">乐普医疗</span><span class="chip">赛诺医疗</span><span class="chip">吉威医疗</span><span class="chip">微创医疗</span><span class="chip chip-soft">无菌包装</span><span class="chip chip-soft">高值耗材包装</span><span class="chip chip-soft">医疗器械包装</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/cO0wfDadyDIUpAJ1ID17Xw" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">7</div>
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-24</div>
+          <h3>​【首发】星锐医疗完成千万级Pre-A轮融资，加速穿戴式切口负压装置全球布局</h3>
+          
+      <div class="badges">
+        <span class="badge category">投融资</span>
+        <span class="badge relevance">Relevance 17</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">星锐医疗ciNPT产品获批并获融资，准备出海，可能带动一次性无菌包装需求。</p>
+          <p class="reason">产品为一次性无菌耗材，上市后需无菌屏障系统包装（如顶头袋、纸塑袋等），但文章未明确包装类型或产能，相关性较强。</p>
+          <div class="chips"><span class="chip">星锐医疗</span><span class="chip">九颂山河基金</span><span class="chip">延陵电子</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/ADMMIQUfrzOWPUIbeaHm2Q" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">8</div>
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-01</div>
+          <h3>【首发】 微光医疗完成数亿元融资，加速打造AI赋能的介入器械诊疗平台</h3>
+          
+      <div class="badges">
+        <span class="badge category">投融资</span>
+        <span class="badge relevance">Relevance 16</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">微光医疗融资数亿元，推动介入诊疗一体化解决方案商业化。</p>
+          <p class="reason">文章涉及介入耗材产品商业化，可能增加无菌包装需求，但未明确提及包装材料或产能。</p>
+          <div class="chips"><span class="chip">微光医疗</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/xQym_WvOYpquxieDyQ_A_g" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">9</div>
+        <div class="article-main">
+          <div class="article-meta">Medtec医疗器械设计与制造 · 2026-06-18</div>
+          <h3>人工关节：60年&quot;金标准&quot;为什么还没被替代</h3>
+          
+      <div class="badges">
+        <span class="badge category">高值耗材</span>
+        <span class="badge relevance">Relevance 13</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">Exactech因包装缺陷破产警示，医疗包装安全不可忽视；人工关节材料虽不断演进，但可靠性与可预期性仍是金标准。</p>
+          <p class="reason">文章详细介绍Exactech因包装袋缺少EVOH阻氧层导致聚乙烯氧化、最终破产的案例，直接证明包装材料（阻氧层）对医疗器械安全的关键性，对医疗包装企业有很强的警示和启发意义。</p>
+          <div class="chips"><span class="chip">强生</span><span class="chip">DePuy</span><span class="chip">Exactech</span><span class="chip">史赛克</span><span class="chip chip-soft">无菌包装</span><span class="chip chip-soft">包装完整性</span><span class="chip chip-soft">氧气阻隔</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/y2N-EAmSIWeyKJbZB4vZqQ" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        <div class="rank">10</div>
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-26</div>
+          <h3>治愈成瘾！一家中国公司凭什么登上Nature主刊</h3>
+          
+      <div class="badges">
+        <span class="badge category">NMPA获批</span>
+        <span class="badge relevance">Relevance 19</span>
+        <span class="badge score-mid">Amcor 3</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">景昱医疗双靶点DBS系统全球首例商业化，填补药物成瘾治疗空白，有望带动相关包装需求。</p>
+          <p class="reason">产品为植入式高值耗材，需无菌包装；年产五千套生产线可能产生包装需求，但文章未明确提及包装材料或工艺。</p>
+          <div class="chips"><span class="chip">景昱医疗</span><span class="chip chip-soft">无菌包装</span><span class="chip chip-soft">植入式医疗器械包装</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/X3rma_VsTYbaTN2rZC6xJQ" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    </div>
+    </section>
+
+    <section id="weeks">
+      <div class="section-title">
+        <h2>Week-by-Week Digest</h2>
+      </div>
+      
+      <section class="week-section" id="week-1">
+        <div class="week-header">
+          <div>
+            <div class="eyebrow">Week 1</div>
+            <h2>2026-06-01 至 2026-06-07</h2>
+          </div>
+          <span class="week-count">9 articles</span>
+        </div>
+        <div class="week-overview"><h3>本周概览</h3><p>本周医疗器械行业“创新”与“集采”并行。NMPA批准了两款创新医疗器械，同时福建启动射频消融电极联盟集采，肿瘤介入耗材集采扩围。资本市场方面，微光医疗和糖吉医疗分别完成数亿元融资，推动其产品商业化。</p></div>
+        <h3 class="subhead">Most Relevant to Amcor / Packaging</h3>
+        <div class="card-grid">
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-01</div>
+          <h3>【首发】 微光医疗完成数亿元融资，加速打造AI赋能的介入器械诊疗平台</h3>
+          
+      <div class="badges">
+        <span class="badge category">投融资</span>
+        <span class="badge relevance">Relevance 16</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">微光医疗融资数亿元，推动介入诊疗一体化解决方案商业化。</p>
+          <p class="reason">文章涉及介入耗材产品商业化，可能增加无菌包装需求，但未明确提及包装材料或产能。</p>
+          <div class="chips"><span class="chip">微光医疗</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/xQym_WvOYpquxieDyQ_A_g" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-01</div>
+          <h3>【首发】糖吉医疗完成超亿元人民币C+轮融资，黎曼猜想担任本轮投资人南通投管独家财务顾问</h3>
+          
+      <div class="badges">
+        <span class="badge category">投融资</span>
+        <span class="badge relevance">Relevance 19</span>
+        <span class="badge score-mid">Amcor 3</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">糖吉医疗完成C+轮融资，其胃转流支架系统商业化加速，关注其无菌包装需求。</p>
+          <p class="reason">产品为高值耗材，需无菌包装，但文章未直接提及包装材料或产能，商业化放量可能带来包装需求。</p>
+          <div class="chips"><span class="chip">糖吉医疗</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/Y0s9f2phDVc8nPYKmNdxzA" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">中国医疗器械行业协会 · 2026-06-02</div>
+          <h3>【行业新闻】创新药械丨两款创新医疗器械获批上市</h3>
+          
+      <div class="badges">
+        <span class="badge category">器械审批</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-mid">Amcor 3</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">国家药监局批准两款创新医疗器械，扩大高值耗材产品线。</p>
+          <p class="reason">文章涉及两款创新医疗器械获批上市，可能产生无菌包装需求，但未提及具体包装材料、产能或供应链信息。</p>
+          <div class="chips"><span class="chip">上海玄宇医疗器械有限公司</span><span class="chip">河南赛美视生物科技有限公司</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/aKU6lwLZr_v6Yc5Ur5QEbA" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">赛柏蓝器械 · 2026-06-07</div>
+          <h3>耗材联盟集采来了</h3>
+          
+      <div class="badges">
+        <span class="badge category">集采中标</span>
+        <span class="badge relevance">Relevance 16</span>
+        <span class="badge score-mid">Amcor 3</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">福建启动射频消融电极联盟集采，肿瘤介入耗材集采扩围，国产替代加速。</p>
+          <p class="reason">文章涉及肿瘤介入耗材集采，可能带来耗材放量，间接增加无菌包装需求，但未直接提及包装材料或产能。</p>
+          <div class="chips"><span class="chip">南微医学</span><span class="chip">康友医疗</span><span class="chip">惠泰医疗</span><span class="chip">心脉医疗</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/8Bl08cAlrM0H4UDjJrjSew" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    </div>
+        <details class="other-news" open>
+          <summary>Other Important Medical Device News</summary>
+          <ul>
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/Xdq6zjis3kVkG2lArgJlHA" target="_blank" rel="noopener">科塞尔×百全通：深耕外周血管介入产业生态，以长期主义践行耐心致远之路</a>
+          <div class="compact-meta">MedTrend医趋势 · 2026-06-03 · relevance 17 · amcor 3</div>
+          <p>科塞尔并购百全通强化外周介入生态，超声导管获批，国产替代加速。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/o4SUO97Fa4HX16yTbAlSYQ" target="_blank" rel="noopener">【首发】华融科创集团完成A轮超亿元融资，比邻星投资领投，浩悦资本担任独家财务顾问</a>
+          <div class="compact-meta">动脉网 · 2026-06-02 · relevance 16 · amcor 3</div>
+          <p>华融科创获超亿元融资，创新镁合金螺钉获批，有望带动国产替代。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/gQ_psYMhAkG8QCDvyCmPEQ" target="_blank" rel="noopener">最新！2款创新医疗器械获批！</a>
+          <div class="compact-meta">思宇MedTech · 2026-06-02 · relevance 18 · amcor 2</div>
+          <p>NMPA批准两款创新器械，累计创新器械已达425项。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/_KutwnaGAVQG9W8L4Y3dPg" target="_blank" rel="noopener">雅培打破CGM内卷</a>
+          <div class="compact-meta">赛柏蓝器械 · 2026-06-04 · relevance 17 · amcor 2</div>
+          <p>雅培双分析物CGM获CE认证，开辟DKA风险监测新赛道，合作MiniMed强化市场地位。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/GLUbPu-AWBSqnPr13GAhUQ" target="_blank" rel="noopener">超亿元！糖吉医疗完成C+轮融资</a>
+          <div class="compact-meta">思宇MedTech · 2026-06-01 · relevance 17 · amcor 1</div>
+          <p>国内创新代谢疾病介入器械公司获超亿元融资，核心产品已上市并获FDA认定。</p>
+        </div>
+      </li>
+    </ul>
+        </details>
+      </section>
+    
+      <section class="week-section" id="week-2">
+        <div class="week-header">
+          <div>
+            <div class="eyebrow">Week 2</div>
+            <h2>2026-06-08 至 2026-06-14</h2>
+          </div>
+          <span class="week-count">11 articles</span>
+        </div>
+        <div class="week-overview"><h3>本周概览</h3><p>本周血管介入赛道异常活跃。巴泰医疗完成近2亿元融资并规划智能生产基地，海迈医疗旗下国产首款生物型人工血管完成临床入组。同时，心脏起搏器和介入微导管两类高值耗材集采结果公布，将于7月1日落地，国产替代加速。</p></div>
+        <h3 class="subhead">Most Relevant to Amcor / Packaging</h3>
+        <div class="card-grid">
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-10</div>
+          <h3>【首发】巴泰医疗完成近2亿元D轮融资，加速泛血管介入创新器械商业化和全球化</h3>
+          
+      <div class="badges">
+        <span class="badge category">融资并购</span>
+        <span class="badge relevance">Relevance 19</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">巴泰医疗完成近2亿元融资，推进耗材商业化与产能扩建，可能拉动无菌包装需求。</p>
+          <p class="reason">文章提及血管介入耗材商业化放量、集采中标后放量、智能生产基地拓建，可能增加无菌包装、导管鞘包装等需求，但未直接提及包装材料。</p>
+          <div class="chips"><span class="chip">巴泰医疗</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/yhxAWQOfIcS0rsQXVhw9XA" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">思宇MedTech · 2026-06-10</div>
+          <h3>获批创新器械！全球首款自膨式可降解房缺封堵器</h3>
+          
+      <div class="badges">
+        <span class="badge category">创新器械审批</span>
+        <span class="badge relevance">Relevance 19</span>
+        <span class="badge score-mid">Amcor 3</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">自膨式可降解房缺封堵器获批创新器械，国产结构性心脏病介入器械获重要进展。</p>
+          <p class="reason">文章未直接提及包装，但该植入器械需无菌屏障系统，商业化后可能产生包装需求。</p>
+          <div class="chips"><span class="chip">上海锦葵医疗器械股份有限公司</span><span class="chip chip-soft">无菌包装</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/owrzpuNbxa8qdZqda4yo5Q" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-12</div>
+          <h3>【首发】完成临床入组、斩获新一轮融资，海迈医疗加速小口径人工血管产业化</h3>
+          
+      <div class="badges">
+        <span class="badge category">医疗器械</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-mid">Amcor 3</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">海迈医疗小口径人工血管临床入组完成，融资加码，产业化加速，有望填补国内空白。</p>
+          <p class="reason">产品为高值耗材，具备量产能力（年3万根），商业化后将需要无菌包装，但文章未直接提及包装材料或供应商。</p>
+          <div class="chips"><span class="chip">{&#x27;company_name&#x27;: &#x27;海迈医疗科技（苏州）有限公司&#x27;, &#x27;role&#x27;: &#x27;主体企业&#x27;, &#x27;type&#x27;: &#x27;medical_device&#x27;}</span><span class="chip">{&#x27;company_name&#x27;: &#x27;中银国际投资有限责任公司&#x27;, &#x27;role&#x27;: &#x27;领投方&#x27;, &#x27;type&#x27;: &#x27;investor&#x27;}</span><span class="chip">{&#x27;company_name&#x27;: &#x27;苏州创新投资集团&#x27;, &#x27;role&#x27;: &#x27;跟投方&#x27;, &#x27;type&#x27;: &#x27;investor&#x27;}</span><span class="chip">{&#x27;company_name&#x27;: &#x27;Humacyte&#x27;, &#x27;role&#x27;: &#x27;对标公司&#x27;, &#x27;type&#x27;: &#x27;medical_device&#x27;}</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/K2PBppxvOqCpoTTH05gOEg" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">赛柏蓝器械 · 2026-06-11</div>
+          <h3>7月1日起，27+29省集采落地</h3>
+          
+      <div class="badges">
+        <span class="badge category">集采</span>
+        <span class="badge relevance">Relevance 16</span>
+        <span class="badge score-mid">Amcor 3</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">心脏起搏器与介入微导管集采7月1日落地，国产企业中标，放量在即。</p>
+          <p class="reason">文章涉及高值耗材集采，放量将间接带动无菌包装需求，但未直接提及包装材料或产能。</p>
+          <div class="chips"><span class="chip">创领心律</span><span class="chip">乐普</span><span class="chip">心玮医疗</span><span class="chip">通桥医疗</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/8_w-3osdMO02ybs85H97-A" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    </div>
+        <details class="other-news" open>
+          <summary>Other Important Medical Device News</summary>
+          <ul>
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/GWXXkZARJH2ynzsWLSxbsA" target="_blank" rel="noopener">大型集采重塑呼吸介入赛道，谁会赢得新一轮市场红利？</a>
+          <div class="compact-meta">赛柏蓝器械 · 2026-06-11 · relevance 16 · amcor 3</div>
+          <p>呼吸介入集采启动，华芯医疗等国产企业凭借产能和认证有望受益。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/Jy_GyQOSGuEmHQsOsk5Yvw" target="_blank" rel="noopener">国产首款生物型人工血管LineMatrix耐迈通®完成注册临床试验入组</a>
+          <div class="compact-meta">动脉网 · 2026-06-09 · relevance 16 · amcor 2</div>
+          <p>海迈医疗生物型人工血管完成临床入组，国产替代加速，但包装相关性较低。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/jm9_GLlJWsksXkQZrJhiLQ" target="_blank" rel="noopener">对话度博迈牛之猛：从一根抗菌导尿管开始，把植入耗材界面重做一遍</a>
+          <div class="compact-meta">动脉网 · 2026-06-11 · relevance 18 · amcor 2</div>
+          <p>度博迈抗菌导尿管获批，以氨基酸阳离子技术实现安全抗菌，有望推动国产导尿管创新升级。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/kYmBWHOU421JQOqmQt33PQ" target="_blank" rel="noopener">看得见、堵得住、留得久，智元柏迈可显影液体栓塞剂进入创新通道</a>
+          <div class="compact-meta">动脉网 · 2026-06-09 · relevance 18 · amcor 2</div>
+          <p>智元柏迈可显影液体栓塞剂获创新通道，有望填补国产空白。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/-0nPYGejAs3L7DnLavJl3g" target="_blank" rel="noopener">【里程碑】撑得住、可降解，全球首创心脏封堵器获批！</a>
+          <div class="compact-meta">动脉网 · 2026-06-12 · relevance 19 · amcor 1</div>
+          <p>锦葵医疗自膨式单铆可降解ASD封堵器获批，性能突破，进入性能竞争时代。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/Kk65_s0Q5ohZM4ajZ2CWqw" target="_blank" rel="noopener">国产血透，85亿跨界收购</a>
+          <div class="compact-meta">赛柏蓝器械 · 2026-06-12 · relevance 16 · amcor 1</div>
+          <p>威高血净跨界收购药包材龙头，拓展新增长曲线。</p>
+        </div>
+      </li>
+    </ul>
+        </details>
+      </section>
+    
+      <section class="week-section" id="week-3">
+        <div class="week-header">
+          <div>
+            <div class="eyebrow">Week 3</div>
+            <h2>2026-06-15 至 2026-06-21</h2>
+          </div>
+          <span class="week-count">8 articles</span>
+        </div>
+        <div class="week-overview"><h3>本周概览</h3><p>本周是本月医疗器械包装信号最强的一周。强生视觉宣布投资超10亿美元扩产，明确升级包装产能。国产外科缝线龙头百迈科IPO过会，计划大幅扩产。同时，冠脉支架第二轮国采接续结果出炉，采购量大幅增长，为包装需求带来确定性增量。人工关节行业分析文章则从反面案例强调了包装材料的重要性。</p></div>
+        <h3 class="subhead">Most Relevant to Amcor / Packaging</h3>
+        <div class="card-grid">
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">思宇MedTech · 2026-06-19</div>
+          <h3>强生10亿美元加码眼科产能，全球制造布局再升级</h3>
+          
+      <div class="badges">
+        <span class="badge category">产能扩张</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-high">Packaging high</span>
+      </div>
+    
+          <p class="takeaway">强生加码眼科产能，带动包装需求，给国内医疗器械包装企业带来新机会。</p>
+          <p class="reason">文章明确提及升级包装产能，隐形眼镜和IOL生产需无菌包装、托盒、成型膜等，强生是Amcor重要客户，产能扩张可能增加包装需求。</p>
+          <div class="chips"><span class="chip">强生</span><span class="chip chip-soft">包装产能</span><span class="chip chip-soft">制造与包装</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/mrUNVzU4xuHbKc2T4Y-5wg" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">思宇MedTech · 2026-06-17</div>
+          <h3>北交所IPO过会！国产可吸收外科缝线企业冲刺上市</h3>
+          
+      <div class="badges">
+        <span class="badge category">耗材上市与注册审批</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-high">Packaging high</span>
+      </div>
+    
+          <p class="takeaway">百迈科IPO扩产400万根缝线，为上游无菌包装企业带来确定性增量机会。</p>
+          <p class="reason">高值耗材缝线产能大幅扩张（+400万根），需配套无菌包装（如头袋、纸塑袋）；集采放量可能进一步拉动包装需求。</p>
+          <div class="chips"><span class="chip">海南百迈科医疗科技股份有限公司</span><span class="chip chip-soft">无菌屏障系统</span><span class="chip chip-soft">无菌包装</span><span class="chip chip-soft">医疗耗材包装</span><span class="chip chip-soft">产能扩张</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/71NbQOxbjdhvUjdbKAl2-Q" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">MedTrend医趋势 · 2026-06-18</div>
+          <h3>最新支架国采中选结果：外资全部&quot;留场&quot;，但大赢家是定价逻辑</h3>
+          
+      <div class="badges">
+        <span class="badge category">高值耗材集采</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">冠脉支架集采放量，价格回升，利好包装需求。</p>
+          <p class="reason">冠脉支架集采放量，采购量273万个，这些高值耗材需要无菌包装；但文章未提及具体包装材料或供应商。</p>
+          <div class="chips"><span class="chip">乐普医疗</span><span class="chip">赛诺医疗</span><span class="chip">吉威医疗</span><span class="chip">微创医疗</span><span class="chip chip-soft">无菌包装</span><span class="chip chip-soft">高值耗材包装</span><span class="chip chip-soft">医疗器械包装</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/cO0wfDadyDIUpAJ1ID17Xw" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">Medtec医疗器械设计与制造 · 2026-06-18</div>
+          <h3>人工关节：60年&quot;金标准&quot;为什么还没被替代</h3>
+          
+      <div class="badges">
+        <span class="badge category">高值耗材</span>
+        <span class="badge relevance">Relevance 13</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">Exactech因包装缺陷破产警示，医疗包装安全不可忽视；人工关节材料虽不断演进，但可靠性与可预期性仍是金标准。</p>
+          <p class="reason">文章详细介绍Exactech因包装袋缺少EVOH阻氧层导致聚乙烯氧化、最终破产的案例，直接证明包装材料（阻氧层）对医疗器械安全的关键性，对医疗包装企业有很强的警示和启发意义。</p>
+          <div class="chips"><span class="chip">强生</span><span class="chip">DePuy</span><span class="chip">Exactech</span><span class="chip">史赛克</span><span class="chip chip-soft">无菌包装</span><span class="chip chip-soft">包装完整性</span><span class="chip chip-soft">氧气阻隔</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/y2N-EAmSIWeyKJbZB4vZqQ" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    </div>
+        <details class="other-news" open>
+          <summary>Other Important Medical Device News</summary>
+          <ul>
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/9j07yMLwqWlpJa355Ju9Og" target="_blank" rel="noopener">7月1日起，高频电刀大洗牌</a>
+          <div class="compact-meta">赛柏蓝器械 · 2026-06-17 · relevance 16 · amcor 3</div>
+          <p>高频电刀集采落地将重塑市场格局，国产品牌放量带来包装需求机会。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/_P2YSd433SdWjiFkakOLvA" target="_blank" rel="noopener">新一轮耗材国采，开始数据填报</a>
+          <div class="compact-meta">赛柏蓝器械 · 2026-06-16 · relevance 16 · amcor 3</div>
+          <p>四类耗材国采数据填报启动，消化介入集采即将落地。</p>
+        </div>
+      </li>
+    </ul>
+        </details>
+      </section>
+    
+      <section class="week-section" id="week-4">
+        <div class="week-header">
+          <div>
+            <div class="eyebrow">Week 4</div>
+            <h2>2026-06-22 至 2026-06-28</h2>
+          </div>
+          <span class="week-count">13 articles</span>
+        </div>
+        <div class="week-overview"><h3>本周概览</h3><p>本周围绕国产替代和出海展开，亮点众多。普生医疗（一次性内窥镜）和华脉泰科（血管介入）冲刺IPO并计划扩产。星锐医疗融资推动一次性负压装置出海。景昱医疗的DBS系统全球首例商业化，开辟新赛道。国产CGM出海爆发式增长。</p></div>
+        <h3 class="subhead">Most Relevant to Amcor / Packaging</h3>
+        <div class="card-grid">
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">赛柏蓝器械 · 2026-06-24</div>
+          <h3>拟募资7亿，国产一次性内窥镜冲刺IPO</h3>
+          
+      <div class="badges">
+        <span class="badge category">医疗器械</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">普生医疗冲刺科创板，扩产一次性内窥镜，上游包装企业应关注其产能释放带来的包装采购机会。</p>
+          <p class="reason">一次性内窥镜属于高值医疗耗材，需要无菌屏障包装；公司IPO募资扩产将增加一次性内窥镜产量，可能带动对顶头袋、成型膜、吸塑盒等无菌包装材料的需求，但文章未明确提及包装形式或供应商。</p>
+          <div class="chips"><span class="chip">珠海普生医疗科技股份有限公司</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/RuX6mVbUxuf_gP8tHzplgw" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">思宇MedTech · 2026-06-23</div>
+          <h3>拟募资7亿！国产一次性内窥镜企业冲刺IPO</h3>
+          
+      <div class="badges">
+        <span class="badge category">医疗器械</span>
+        <span class="badge relevance">Relevance 18</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">国产一次性内窥镜企业普生医疗冲刺IPO，扩产有望带动配套无菌包装需求。</p>
+          <p class="reason">文章未直接提及包装，但公司一次性内窥镜产品（一次性无菌耗材）商业化放量及产能建设，可能显著增加灭菌袋、成型膜等无菌包装材料需求。</p>
+          <div class="chips"><span class="chip">{&#x27;name&#x27;: &#x27;珠海普生医疗科技股份有限公司&#x27;, &#x27;role&#x27;: &#x27;发行主体&#x27;, &#x27;country&#x27;: &#x27;中国&#x27;}</span><span class="chip">{&#x27;name&#x27;: &#x27;波士顿科学&#x27;, &#x27;role&#x27;: &#x27;竞争对手&#x27;, &#x27;country&#x27;: &#x27;美国&#x27;}</span><span class="chip">{&#x27;name&#x27;: &#x27;中信证券&#x27;, &#x27;role&#x27;: &#x27;保荐机构&#x27;, &#x27;country&#x27;: &#x27;中国&#x27;}</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/_u9VEpYneUu7QyyFGpUbpw" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-24</div>
+          <h3>​【首发】星锐医疗完成千万级Pre-A轮融资，加速穿戴式切口负压装置全球布局</h3>
+          
+      <div class="badges">
+        <span class="badge category">投融资</span>
+        <span class="badge relevance">Relevance 17</span>
+        <span class="badge score-high">Amcor 4</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">星锐医疗ciNPT产品获批并获融资，准备出海，可能带动一次性无菌包装需求。</p>
+          <p class="reason">产品为一次性无菌耗材，上市后需无菌屏障系统包装（如顶头袋、纸塑袋等），但文章未明确包装类型或产能，相关性较强。</p>
+          <div class="chips"><span class="chip">星锐医疗</span><span class="chip">九颂山河基金</span><span class="chip">延陵电子</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/ADMMIQUfrzOWPUIbeaHm2Q" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    
+      <article class="article-card">
+        
+        <div class="article-main">
+          <div class="article-meta">动脉网 · 2026-06-26</div>
+          <h3>治愈成瘾！一家中国公司凭什么登上Nature主刊</h3>
+          
+      <div class="badges">
+        <span class="badge category">NMPA获批</span>
+        <span class="badge relevance">Relevance 19</span>
+        <span class="badge score-mid">Amcor 3</span>
+        <span class="badge pack-medium">Packaging medium</span>
+      </div>
+    
+          <p class="takeaway">景昱医疗双靶点DBS系统全球首例商业化，填补药物成瘾治疗空白，有望带动相关包装需求。</p>
+          <p class="reason">产品为植入式高值耗材，需无菌包装；年产五千套生产线可能产生包装需求，但文章未明确提及包装材料或工艺。</p>
+          <div class="chips"><span class="chip">景昱医疗</span><span class="chip chip-soft">无菌包装</span><span class="chip chip-soft">植入式医疗器械包装</span></div>
+          <a class="read-link" href="https://mp.weixin.qq.com/s/X3rma_VsTYbaTN2rZC6xJQ" target="_blank" rel="noopener">Open original</a>
+        </div>
+      </article>
+    </div>
+        <details class="other-news" open>
+          <summary>Other Important Medical Device News</summary>
+          <ul>
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/BloMHFjmgtPYxNPYmAZWTQ" target="_blank" rel="noopener">神经介入公司，3.35亿卖身</a>
+          <div class="compact-meta">赛柏蓝器械 · 2026-06-24 · relevance 16 · amcor 3</div>
+          <p>神经介入领域并购活跃，国产企业加速突围。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/3qBJVQJAxD0VOa-WfNZKsA" target="_blank" rel="noopener">冠脉支架接续采购结果公布，行业格局再洗牌</a>
+          <div class="compact-meta">思宇MedTech · 2026-06-23 · relevance 16 · amcor 2</div>
+          <p>冠脉支架集采接续采购落地，需求量增、价格微升，国产龙头份额稳固。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/8tfo2FVZzcN4toboL74Opg" target="_blank" rel="noopener">全球唯一获批的电机分离pVAD！重症循环支持迎来中国新方案</a>
+          <div class="compact-meta">动脉网 · 2026-06-22 · relevance 19 · amcor 2</div>
+          <p>丰凯利SynFlow®3.0获NMPA批准，电机分离设计降低pVAD治疗成本。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/uRLjjXTUjtBsbRJ0KTvauQ" target="_blank" rel="noopener">“中国心”，获三国审批</a>
+          <div class="compact-meta">MedWorld器械世界 · 2026-06-24 · relevance 16 · amcor 1</div>
+          <p>同心医疗全磁悬浮人工心脏获欧洲多国临床试验批准。</p>
+        </div>
+      </li>
+    </ul>
+        </details>
+      </section>
+    
+      <section class="week-section" id="week-5">
+        <div class="week-header">
+          <div>
+            <div class="eyebrow">Week 5</div>
+            <h2>2026-06-29 至 2026-06-30</h2>
+          </div>
+          <span class="week-count">5 articles</span>
+        </div>
+        <div class="week-overview"><h3>本周概览</h3><p>月末，NMPA再批准两款创新器械（激光消融设备、TAVR系统）。国产放疗定位耗材龙头科莱瑞迪在北交所IPO大涨。科塞尔通过平台化整合展现血管介入企业出海模式。新耀湃科首次实现国产给药装置进入FDA药械组合体系。</p></div>
+        <h3 class="subhead">Most Relevant to Amcor / Packaging</h3>
+        <div class="card-grid"><p class="empty-note">本周暂无直接包装相关强信号。</p></div>
+        <details class="other-news" open>
+          <summary>Other Important Medical Device News</summary>
+          <ul>
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/M-65wJtDTJrCdc5Aq7w8pA" target="_blank" rel="noopener">最新！2款创新医疗器械获批！</a>
+          <div class="compact-meta">思宇MedTech · 2026-06-29 · relevance 16 · amcor 3</div>
+          <p>国产创新器械获批，关注后续商业化对无菌包装的需求。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/k4gVQvj_CpvIPZlLHzTJPw" target="_blank" rel="noopener">从一支国产滤器到全球平台生态：科塞尔的血管介入“黄金十年”突围样本</a>
+          <div class="compact-meta">动脉网 · 2026-06-29 · relevance 16 · amcor 3</div>
+          <p>科塞尔以滤器和K鞘切入，通过并购与平台化构建外周、冠脉、电生理生态，并加速全球化。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/GDladAVFCyJcXMHFyQNozg" target="_blank" rel="noopener">【行业新闻】国内首创！又一创新器械获批</a>
+          <div class="compact-meta">中国医疗器械行业协会 · 2026-06-30 · relevance 16 · amcor 2</div>
+          <p>国内首创三倍频激光消融设备获批，配套无菌光纤导管上市。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/06l5e1YMBWCxB0Qj0DMgaQ" target="_blank" rel="noopener">成立5年营收数亿，这家上海企业推动中国给药装置首次进入FDA药械组合体系</a>
+          <div class="compact-meta">动脉网 · 2026-06-29 · relevance 16 · amcor 2</div>
+          <p>国产注射笔首次获FDA批准，标志中国给药装置进入国际市场。</p>
+        </div>
+      </li>
+    
+      <li class="compact-article">
+        <div>
+          <a href="https://mp.weixin.qq.com/s/q00MsDB6YHIPg8pfV09eyg" target="_blank" rel="noopener">国产放疗定位耗材龙头IPO，开盘大涨190%</a>
+          <div class="compact-meta">动脉网 · 2026-06-29 · relevance 16 · amcor 1</div>
+          <p>科莱瑞迪IPO，放疗定位耗材国产龙头市占率42.5%，商业化进一程。</p>
+        </div>
+      </li>
+    </ul>
+        </details>
+      </section>
+    
+    </section>
+
+    <section id="categories">
+      <div class="section-title"><h2>Category Summary</h2></div>
+      <div class="pills"><span class="pill">医疗器械 <b>10</b></span><span class="pill">融资并购 <b>4</b></span><span class="pill">投融资 <b>4</b></span><span class="pill">高值耗材 <b>3</b></span><span class="pill">集采 <b>3</b></span><span class="pill">高值耗材集采 <b>2</b></span><span class="pill">集采中标 <b>2</b></span><span class="pill">企业动态 <b>2</b></span><span class="pill">产能扩张 <b>1</b></span><span class="pill">耗材上市与注册审批 <b>1</b></span><span class="pill">NMPA获批 <b>1</b></span><span class="pill">创新器械审批 <b>1</b></span><span class="pill">器械审批 <b>1</b></span><span class="pill">高值医用耗材 <b>1</b></span><span class="pill">其他 <b>1</b></span><span class="pill">产品获批 <b>1</b></span><span class="pill">政策监管 <b>1</b></span><span class="pill">集采招标 <b>1</b></span><span class="pill">创新器械获批 <b>1</b></span><span class="pill">器械获批 <b>1</b></span><span class="pill">监管审批 <b>1</b></span><span class="pill">医疗耗材 <b>1</b></span><span class="pill">医疗器械注册审批 <b>1</b></span><span class="pill">并购融资 <b>1</b></span></div>
+      <div class="section-title" style="margin-top:18px"><h2>Sources</h2></div>
+      <div class="pills"><span class="pill pill-muted">动脉网 <b>17</b></span><span class="pill pill-muted">赛柏蓝器械 <b>12</b></span><span class="pill pill-muted">思宇MedTech <b>8</b></span><span class="pill pill-muted">MedTrend医趋势 <b>3</b></span><span class="pill pill-muted">Medtec医疗器械设计与制造 <b>2</b></span><span class="pill pill-muted">中国医疗器械行业协会 <b>2</b></span><span class="pill pill-muted">CMEF中国国际医疗器械博览会 <b>1</b></span><span class="pill pill-muted">MedWorld器械世界 <b>1</b></span></div>
+    </section>
+
+    
+    <section id="watchlists" class="narrative">
+      <div class="section-title"><h2>Watchlists & Amcor Implications</h2></div>
+      <h2>5. Company Watchlist</h2>
+<p>*   <strong>强生 (Johnson &amp; Johnson)</strong></p>
+<p>*   <strong>出现次数</strong>：2次</p>
+<p>*   <strong>关键事件</strong>：投资10亿美元扩建眼科产品基地，明确升级制造与包装产能。</p>
+<p>*   <strong>包装相关性</strong>：<strong>高</strong>。作为Amcor全球客户，其包装产能扩张可能带来新的合作机会。</p>
+<p>*   <strong>关注原因</strong>：直接关联Amcor医疗器械包装业务，需密切跟踪其基地建设进展及包装供应商选择。</p>
+<p>*   <strong>海南百迈科医疗科技股份有限公司</strong></p>
+<p>*   <strong>出现次数</strong>：2次</p>
+<p>*   <strong>关键事件</strong>：北交所IPO过会，计划募资3.06亿元新增400万根可吸收缝线产能，总产能将达655万根。</p>
+<p>*   <strong>包装相关性</strong>：<strong>高</strong>。缝线是高值耗材，需专用无菌包装（顶头袋、纸塑袋），是明确的包装需求增量。</p>
+<p>*   <strong>关注原因</strong>：确定性的国内耗材扩产项目，是Amcor可主动拓展的潜力客户。</p>
+<p>*   <strong>巴泰医疗</strong></p>
+<p>*   <strong>出现次数</strong>：1次</p>
+<p>*   <strong>关键事件</strong>：完成近2亿元D轮融资，用于商业化推广和拓建智能生产基地；旗下导引鞘管等产品已集采全面中标。</p>
+<p>*   <strong>包装相关性</strong>：<strong>高</strong>。商业化放量与产能扩张并行，是无菌包装需求的明确信号。</p>
+<p>*   <strong>关注原因</strong>：平台型血管介入企业，产品线齐全，集采放量后包装需求增长潜力大。</p>
+<p>*   <strong>珠海普生医疗科技股份有限公司</strong></p>
+<p>*   <strong>出现次数</strong>：2次</p>
+<p>*   <strong>关键事件</strong>：科创板IPO获受理，拟募资7.02亿元用于一次性内窥镜产业化基地建设（4.23亿元）及研发。</p>
+<p>*   <strong>包装相关性</strong>：<strong>高</strong>。一次性内窥镜是典型无菌耗材，其大规模扩产将直接带动灭菌袋、成型膜等包装需求。</p>
+<p>*   <strong>关注原因</strong>：国产一次性内窥镜头部企业，IPO募资扩产，是潜在的包装大客户。</p>
+<p>*   <strong>微创医疗 (MicroPort)</strong></p>
+<p>*   <strong>出现次数</strong>：冠脉支架集采相关文章中多次出现。</p>
+<p>*   <strong>关键事件</strong>：在冠脉支架第二轮国采接续中，以24.55%份额居首，充分受益于集采放量。</p>
+<p>*   <strong>包装相关性</strong>：<strong>中</strong>。作为国内最大的冠脉支架生产商，其产品放量将直接拉动无菌包装需求。</p>
+<p>*   <strong>关注原因</strong>：集采下的最大赢家，其包装采购体量和稳定性值得长期关注。</p>
+<p>*   <strong>华芯医疗</strong></p>
+<p>*   <strong>出现次数</strong>：1次</p>
+<p>*   <strong>关键事件</strong>：呼吸介入集采启动，公司拥有1.6万平方米生产基地，年产能40万支一次性内窥镜。</p>
+<p>*   <strong>包装相关性</strong>：<strong>中</strong>。拥有大量一次性内窥镜产能，集采后若放量，包装需求可观。</p>
+<p>*   <strong>关注原因</strong>：产能基础扎实，集采中标后的履约能力可能带来包装订单增长。</p>
+<h2>6. Medical Device / Consumable / Technology Watchlist</h2>
+<h3>medical_consumables（医疗耗材）</h3>
+<p>*   <strong>冠脉支架</strong>：第二轮国采接续，采购量达273万个，是本月耗材放量最明确的产品。</p>
+<p>*   <strong>可吸收外科缝线</strong>：百迈科计划扩产至655万根，国产替代加速，是包装需求的明确增长点。</p>
+<p>*   <strong>一次性电子内窥镜</strong>：普生医疗和华芯医疗均在大幅扩产，覆盖泌尿、呼吸、消化等多个科室。</p>
+<p>*   <strong>CGM传感器</strong>：国产CGM海外销售暴涨，市场正从国内扩展到全球范围，需求持续增长。</p>
+<p>*   <strong>心脏起搏器、介入微导管</strong>：首次大规模国采落地，国产中标企业将迎来放量周期。</p>
+<h3>device_categories（器械类别）</h3>
+<p>*   <strong>血管介入器械</strong>：本月围绕冠脉、外周、神经血管介入领域，涌现多起并购、融资及集采事件，是行业最活跃的赛道。</p>
+<p>*   <strong>高值医用耗材</strong>：从支架、起搏器到人工关节，高值耗材集采常态化，但放量成为主要趋势，对包装需求有正向拉动。</p>
+<p>*   <strong>一次性医疗器械</strong>：一次性内窥镜、一次性负压装置等“耗材化”趋势明显，新产品获批和扩产为包装市场带来增量。</p>
+<h2>7. Packaging &amp; Commercialization Implications for Amcor</h2>
+<h3>7.1 Direct Packaging and Sterilization Signals</h3>
+<p>*   <strong>强生视觉投资</strong>：文章明确提到“升级制造与<strong>包装产能</strong>”，这是本月唯一的直接包装信号。</p>
+<p>*   <strong>百迈科缝线扩产</strong>：文章提及“新增400万根缝线产能”，此类产品需<strong>顶头袋/纸塑袋</strong>等无菌屏障系统。</p>
+<p>*   <strong>Exactech案例</strong>：文章明确指出其“包装缺少EVOH阻氧层”，强调了<strong>包装材料（阻氧性能）</strong> 对器械安全的重要性。</p>
+<h3>7.2 Commercialization and Volume Signals</h3>
+<p>*   <strong>冠脉支架国采接续</strong>：采购量达273万个。这是已确认的商业化放量信号，将直接拉动冠脉支架的无菌包装需求。</p>
+<p>*   <strong>心脏起搏器/微导管集采落地</strong>：7月1日起执行，市场放量可期。</p>
+<p>*   <strong>“高频电刀”集采落地</strong>：29省采购量超1300万把，也是一次大规模放量。</p>
+<p>*   <strong>国产CGM出海</strong>：微泰医疗国际营收增长227%。海外市场放量将带来持续的传感器包装需求。</p>
+<p>*   <strong>景昱医疗DBS系统</strong>：全球首例商业化，虽然初期量不大，但开辟了新赛道，值得长期跟踪。</p>
+<h3>7.3 Capacity and Supply Chain Signals</h3>
+<p>*   <strong>强生视觉基地扩建</strong>：投资10亿美元，包含包装产能，预计2028年投产。</p>
+<p>*   <strong>百迈科产能扩张</strong>：缝线产能从255万根提升至655万根。</p>
+<p>*   <strong>巴泰医疗智能基地</strong>：计划新一代智能生产基地。</p>
+<p>*   <strong>普生医疗产业化基地</strong>：拟投资4.23亿元建设一次性内窥镜生产基地。</p>
+<p>*   <strong>华脉泰科新生产基地</strong>：拟投资1.51亿元建设高端器械生产基地。</p>
+<h3>7.4 Potential Amcor Follow-up Opportunities</h3>
+<p>基于本月分析，Amcor可考虑跟进以下线索：</p>
+<p>*   <strong>强生视力健</strong>：应主动对接其杰克逊维尔基地扩建项目，了解其包装产能升级计划，寻找合作机会。</p>
+<p>*   <strong>百迈科医疗</strong>：其IPO后缝线产能将大幅提升，是Amcor潜在的直接客户，建议跟踪其供应链和包装采购需求。</p>
+<p>*   <strong>巴泰医疗 &amp; 普生医疗</strong>：这两家企业都处于商业化放量并大幅扩建产能的阶段，是潜在的包装需求增长点，值得建立联系。</p>
+<p>*   <strong>支架/起搏器集采中标企业</strong>：如微创医疗、乐普医疗等，其产品大幅放量后，对无菌包装的需求量会显著增加，应关注其采购策略。</p>
+<p>*   <strong>国产CGM企业 (微泰、三诺)</strong>：随着海外市场爆发，其传感器包装需求可能同步增长，可关注其有无本地化包装或出口包装的新需求。</p>
+<p>*   <strong>关注新版ISO 11607或类似标准更新</strong>：Exactech的案例凸显了包装材料选择的重要性，未来行业对高阻隔、高完整性包装的需求只会更强，Amcor应利用此案例加强自身技术方案的推广。</p>
+    </section>
+    
+
+    <section id="risks" class="risks">
+      <h2>8. Risks and Uncertainties</h2>
+<p>*   <strong>信息源可靠性</strong>：部分信息来自微信公众号，建议对关键数据（如集采采购量、融资金额、产能数字）进行二次核实。</p>
+<p>*   <strong>商业化不确定性</strong>：创新器械获批后的商业化放量速度和规模存在不确定性，如可降解封堵器、DBS系统等，其包装需求增长缓慢。</p>
+<p>*   <strong>集采政策风险</strong>：集采虽带来放量，但也可能压缩企业利润，导致包装采购预算受限或转向低价供应商。</p>
+<p>*   <strong>海外市场风险</strong>：国产CGM、给药装置出海面临专利诉讼、注册审批及贸易政策（如关税）等风险，可能影响海外放量节奏。</p>
+<p>*   <strong>推断谨慎性</strong>：报告中对包装需求的推断多为“可能”、“潜在”、“值得跟踪”，并非已确认的订单或客户关系。所有包装材料的推断（如“使用特卫强”）均基于对行业的通用理解，而非文章直接陈述，需注意区分。</p>
+    </section>
+
+    <section id="appendix">
+      <div class="section-title"><h2>Appendix: Articles Reviewed</h2></div>
+      <div class="appendix-wrap">
+        <table class="appendix-table">
+          <thead>
+            <tr>
+              <th>Date</th><th>Title</th><th>Source</th><th>Category</th><th>Rel.</th><th>Amcor</th><th>Packaging</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-06-19</td><td><a href='https://mp.weixin.qq.com/s/mrUNVzU4xuHbKc2T4Y-5wg' target='_blank' rel='noopener'>强生10亿美元加码眼科产能，全球制造布局再升级</a></td><td>思宇MedTech</td><td>产能扩张</td><td>18</td><td>4</td><td>high</td></tr><tr><td>2026-06-17</td><td><a href='https://mp.weixin.qq.com/s/71NbQOxbjdhvUjdbKAl2-Q' target='_blank' rel='noopener'>北交所IPO过会！国产可吸收外科缝线企业冲刺上市</a></td><td>思宇MedTech</td><td>耗材上市与注册审批</td><td>18</td><td>4</td><td>high</td></tr><tr><td>2026-06-10</td><td><a href='https://mp.weixin.qq.com/s/yhxAWQOfIcS0rsQXVhw9XA' target='_blank' rel='noopener'>【首发】巴泰医疗完成近2亿元D轮融资，加速泛血管介入创新器械商业化和全球化</a></td><td>动脉网</td><td>融资并购</td><td>19</td><td>4</td><td>medium</td></tr><tr><td>2026-06-24</td><td><a href='https://mp.weixin.qq.com/s/RuX6mVbUxuf_gP8tHzplgw' target='_blank' rel='noopener'>拟募资7亿，国产一次性内窥镜冲刺IPO</a></td><td>赛柏蓝器械</td><td>医疗器械</td><td>18</td><td>4</td><td>medium</td></tr><tr><td>2026-06-23</td><td><a href='https://mp.weixin.qq.com/s/_u9VEpYneUu7QyyFGpUbpw' target='_blank' rel='noopener'>拟募资7亿！国产一次性内窥镜企业冲刺IPO</a></td><td>思宇MedTech</td><td>医疗器械</td><td>18</td><td>4</td><td>medium</td></tr><tr><td>2026-06-18</td><td><a href='https://mp.weixin.qq.com/s/cO0wfDadyDIUpAJ1ID17Xw' target='_blank' rel='noopener'>最新支架国采中选结果：外资全部&quot;留场&quot;，但大赢家是定价逻辑</a></td><td>MedTrend医趋势</td><td>高值耗材集采</td><td>18</td><td>4</td><td>medium</td></tr><tr><td>2026-06-24</td><td><a href='https://mp.weixin.qq.com/s/ADMMIQUfrzOWPUIbeaHm2Q' target='_blank' rel='noopener'>​【首发】星锐医疗完成千万级Pre-A轮融资，加速穿戴式切口负压装置全球布局</a></td><td>动脉网</td><td>投融资</td><td>17</td><td>4</td><td>medium</td></tr><tr><td>2026-06-01</td><td><a href='https://mp.weixin.qq.com/s/xQym_WvOYpquxieDyQ_A_g' target='_blank' rel='noopener'>【首发】 微光医疗完成数亿元融资，加速打造AI赋能的介入器械诊疗平台</a></td><td>动脉网</td><td>投融资</td><td>16</td><td>4</td><td>medium</td></tr><tr><td>2026-06-18</td><td><a href='https://mp.weixin.qq.com/s/y2N-EAmSIWeyKJbZB4vZqQ' target='_blank' rel='noopener'>人工关节：60年&quot;金标准&quot;为什么还没被替代</a></td><td>Medtec医疗器械设计与制造</td><td>高值耗材</td><td>13</td><td>4</td><td>medium</td></tr><tr><td>2026-06-26</td><td><a href='https://mp.weixin.qq.com/s/X3rma_VsTYbaTN2rZC6xJQ' target='_blank' rel='noopener'>治愈成瘾！一家中国公司凭什么登上Nature主刊</a></td><td>动脉网</td><td>NMPA获批</td><td>19</td><td>3</td><td>medium</td></tr><tr><td>2026-06-10</td><td><a href='https://mp.weixin.qq.com/s/owrzpuNbxa8qdZqda4yo5Q' target='_blank' rel='noopener'>获批创新器械！全球首款自膨式可降解房缺封堵器</a></td><td>思宇MedTech</td><td>创新器械审批</td><td>19</td><td>3</td><td>medium</td></tr><tr><td>2026-06-01</td><td><a href='https://mp.weixin.qq.com/s/Y0s9f2phDVc8nPYKmNdxzA' target='_blank' rel='noopener'>【首发】糖吉医疗完成超亿元人民币C+轮融资，黎曼猜想担任本轮投资人南通投管独家财务顾问</a></td><td>动脉网</td><td>投融资</td><td>19</td><td>3</td><td>medium</td></tr><tr><td>2026-06-12</td><td><a href='https://mp.weixin.qq.com/s/K2PBppxvOqCpoTTH05gOEg' target='_blank' rel='noopener'>【首发】完成临床入组、斩获新一轮融资，海迈医疗加速小口径人工血管产业化</a></td><td>动脉网</td><td>医疗器械</td><td>18</td><td>3</td><td>medium</td></tr><tr><td>2026-06-02</td><td><a href='https://mp.weixin.qq.com/s/aKU6lwLZr_v6Yc5Ur5QEbA' target='_blank' rel='noopener'>【行业新闻】创新药械丨两款创新医疗器械获批上市</a></td><td>中国医疗器械行业协会</td><td>器械审批</td><td>18</td><td>3</td><td>medium</td></tr><tr><td>2026-06-24</td><td><a href='https://mp.weixin.qq.com/s/Y2swCtPDmlwUSXZrRsjBMg' target='_blank' rel='noopener'>【首发】迈捷完成数千万元B轮融资，加速再生医用材料自主创新与产业化</a></td><td>动脉网</td><td>高值医用耗材</td><td>17</td><td>3</td><td>medium</td></tr><tr><td>2026-06-17</td><td><a href='https://mp.weixin.qq.com/s/8RAkcY3NhN5ZvFhUeNfHfA' target='_blank' rel='noopener'>耗材国采接续，中选结果公布（附名单）</a></td><td>赛柏蓝器械</td><td>集采中标</td><td>17</td><td>3</td><td>medium</td></tr><tr><td>2026-06-15</td><td><a href='https://mp.weixin.qq.com/s/G3JEQPWDkwPKW7gDHLe9fw' target='_blank' rel='noopener'>美敦力花5.5亿美元补作业，买了一根&quot;导丝&quot;</a></td><td>MedTrend医趋势</td><td>融资并购</td><td>17</td><td>3</td><td>medium</td></tr><tr><td>2026-06-27</td><td><a href='https://mp.weixin.qq.com/s/95-dOKJhAVoixddyK2D2sA' target='_blank' rel='noopener'>国产CGM出海暴涨超200%！靠什么突围专利围剿？</a></td><td>动脉网</td><td>其他</td><td>16</td><td>3</td><td>medium</td></tr><tr><td>2026-06-26</td><td><a href='https://mp.weixin.qq.com/s/p_oaugHyXXMFoGiIPxy15A' target='_blank' rel='noopener'>创新器械公司，再次启动IPO</a></td><td>赛柏蓝器械</td><td>企业动态</td><td>16</td><td>3</td><td>medium</td></tr><tr><td>2026-06-23</td><td><a href='https://mp.weixin.qq.com/s/KAieLCTb-FKZyxnClbdhJA' target='_blank' rel='noopener'>5大耗材集采启动！</a></td><td>赛柏蓝器械</td><td>集采</td><td>16</td><td>3</td><td>medium</td></tr><tr><td>2026-06-11</td><td><a href='https://mp.weixin.qq.com/s/8_w-3osdMO02ybs85H97-A' target='_blank' rel='noopener'>7月1日起，27+29省集采落地</a></td><td>赛柏蓝器械</td><td>集采</td><td>16</td><td>3</td><td>medium</td></tr><tr><td>2026-06-07</td><td><a href='https://mp.weixin.qq.com/s/8Bl08cAlrM0H4UDjJrjSew' target='_blank' rel='noopener'>耗材联盟集采来了</a></td><td>赛柏蓝器械</td><td>集采中标</td><td>16</td><td>3</td><td>medium</td></tr><tr><td>2026-06-08</td><td><a href='https://mp.weixin.qq.com/s/pXDC20tp31uYtbUiMM0RqQ' target='_blank' rel='noopener'>创新医疗器械最新动态丨3款创新器械获批上市【附最新名录】</a></td><td>CMEF中国国际医疗器械博览会</td><td>产品获批</td><td>15</td><td>3</td><td>medium</td></tr><tr><td>2026-06-26</td><td><a href='https://mp.weixin.qq.com/s/e8eVOeytS-heumUL6hEFbw' target='_blank' rel='noopener'>一根缝线的IPO：国产高端外科耗材走到哪一步了？</a></td><td>Medtec医疗器械设计与制造</td><td>高值耗材</td><td>14</td><td>3</td><td>medium</td></tr><tr><td>2026-06-03</td><td><a href='https://mp.weixin.qq.com/s/Xdq6zjis3kVkG2lArgJlHA' target='_blank' rel='noopener'>科塞尔×百全通：深耕外周血管介入产业生态，以长期主义践行耐心致远之路</a></td><td>MedTrend医趋势</td><td>医疗器械</td><td>17</td><td>3</td><td>low</td></tr><tr><td>2026-06-29</td><td><a href='https://mp.weixin.qq.com/s/M-65wJtDTJrCdc5Aq7w8pA' target='_blank' rel='noopener'>最新！2款创新医疗器械获批！</a></td><td>思宇MedTech</td><td>医疗器械</td><td>16</td><td>3</td><td>low</td></tr><tr><td>2026-06-29</td><td><a href='https://mp.weixin.qq.com/s/k4gVQvj_CpvIPZlLHzTJPw' target='_blank' rel='noopener'>从一支国产滤器到全球平台生态：科塞尔的血管介入“黄金十年”突围样本</a></td><td>动脉网</td><td>高值耗材</td><td>16</td><td>3</td><td>low</td></tr><tr><td>2026-06-24</td><td><a href='https://mp.weixin.qq.com/s/BloMHFjmgtPYxNPYmAZWTQ' target='_blank' rel='noopener'>神经介入公司，3.35亿卖身</a></td><td>赛柏蓝器械</td><td>企业动态</td><td>16</td><td>3</td><td>low</td></tr><tr><td>2026-06-17</td><td><a href='https://mp.weixin.qq.com/s/9j07yMLwqWlpJa355Ju9Og' target='_blank' rel='noopener'>7月1日起，高频电刀大洗牌</a></td><td>赛柏蓝器械</td><td>政策监管</td><td>16</td><td>3</td><td>low</td></tr><tr><td>2026-06-16</td><td><a href='https://mp.weixin.qq.com/s/_P2YSd433SdWjiFkakOLvA' target='_blank' rel='noopener'>新一轮耗材国采，开始数据填报</a></td><td>赛柏蓝器械</td><td>集采招标</td><td>16</td><td>3</td><td>low</td></tr><tr><td>2026-06-11</td><td><a href='https://mp.weixin.qq.com/s/GWXXkZARJH2ynzsWLSxbsA' target='_blank' rel='noopener'>大型集采重塑呼吸介入赛道，谁会赢得新一轮市场红利？</a></td><td>赛柏蓝器械</td><td>集采</td><td>16</td><td>3</td><td>low</td></tr><tr><td>2026-06-02</td><td><a href='https://mp.weixin.qq.com/s/o4SUO97Fa4HX16yTbAlSYQ' target='_blank' rel='noopener'>【首发】华融科创集团完成A轮超亿元融资，比邻星投资领投，浩悦资本担任独家财务顾问</a></td><td>动脉网</td><td>投融资</td><td>16</td><td>3</td><td>low</td></tr><tr><td>2026-06-02</td><td><a href='https://mp.weixin.qq.com/s/gQ_psYMhAkG8QCDvyCmPEQ' target='_blank' rel='noopener'>最新！2款创新医疗器械获批！</a></td><td>思宇MedTech</td><td>创新器械获批</td><td>18</td><td>2</td><td>low</td></tr><tr><td>2026-06-04</td><td><a href='https://mp.weixin.qq.com/s/_KutwnaGAVQG9W8L4Y3dPg' target='_blank' rel='noopener'>雅培打破CGM内卷</a></td><td>赛柏蓝器械</td><td>器械获批</td><td>17</td><td>2</td><td>low</td></tr><tr><td>2026-06-30</td><td><a href='https://mp.weixin.qq.com/s/GDladAVFCyJcXMHFyQNozg' target='_blank' rel='noopener'>【行业新闻】国内首创！又一创新器械获批</a></td><td>中国医疗器械行业协会</td><td>监管审批</td><td>16</td><td>2</td><td>low</td></tr><tr><td>2026-06-29</td><td><a href='https://mp.weixin.qq.com/s/06l5e1YMBWCxB0Qj0DMgaQ' target='_blank' rel='noopener'>成立5年营收数亿，这家上海企业推动中国给药装置首次进入FDA药械组合体系</a></td><td>动脉网</td><td>医疗器械</td><td>16</td><td>2</td><td>low</td></tr><tr><td>2026-06-23</td><td><a href='https://mp.weixin.qq.com/s/3qBJVQJAxD0VOa-WfNZKsA' target='_blank' rel='noopener'>冠脉支架接续采购结果公布，行业格局再洗牌</a></td><td>思宇MedTech</td><td>高值耗材集采</td><td>16</td><td>2</td><td>low</td></tr><tr><td>2026-06-09</td><td><a href='https://mp.weixin.qq.com/s/Jy_GyQOSGuEmHQsOsk5Yvw' target='_blank' rel='noopener'>国产首款生物型人工血管LineMatrix耐迈通®完成注册临床试验入组</a></td><td>动脉网</td><td>医疗器械</td><td>16</td><td>2</td><td>low</td></tr><tr><td>2026-06-22</td><td><a href='https://mp.weixin.qq.com/s/8tfo2FVZzcN4toboL74Opg' target='_blank' rel='noopener'>全球唯一获批的电机分离pVAD！重症循环支持迎来中国新方案</a></td><td>动脉网</td><td>医疗器械</td><td>19</td><td>2</td><td>none</td></tr><tr><td>2026-06-11</td><td><a href='https://mp.weixin.qq.com/s/jm9_GLlJWsksXkQZrJhiLQ' target='_blank' rel='noopener'>对话度博迈牛之猛：从一根抗菌导尿管开始，把植入耗材界面重做一遍</a></td><td>动脉网</td><td>医疗耗材</td><td>18</td><td>2</td><td>none</td></tr><tr><td>2026-06-09</td><td><a href='https://mp.weixin.qq.com/s/kYmBWHOU421JQOqmQt33PQ' target='_blank' rel='noopener'>看得见、堵得住、留得久，智元柏迈可显影液体栓塞剂进入创新通道</a></td><td>动脉网</td><td>医疗器械</td><td>18</td><td>2</td><td>none</td></tr><tr><td>2026-06-12</td><td><a href='https://mp.weixin.qq.com/s/-0nPYGejAs3L7DnLavJl3g' target='_blank' rel='noopener'>【里程碑】撑得住、可降解，全球首创心脏封堵器获批！</a></td><td>动脉网</td><td>医疗器械注册审批</td><td>19</td><td>1</td><td>low</td></tr><tr><td>2026-06-01</td><td><a href='https://mp.weixin.qq.com/s/GLUbPu-AWBSqnPr13GAhUQ' target='_blank' rel='noopener'>超亿元！糖吉医疗完成C+轮融资</a></td><td>思宇MedTech</td><td>融资并购</td><td>17</td><td>1</td><td>low</td></tr><tr><td>2026-06-29</td><td><a href='https://mp.weixin.qq.com/s/q00MsDB6YHIPg8pfV09eyg' target='_blank' rel='noopener'>国产放疗定位耗材龙头IPO，开盘大涨190%</a></td><td>动脉网</td><td>融资并购</td><td>16</td><td>1</td><td>low</td></tr><tr><td>2026-06-24</td><td><a href='https://mp.weixin.qq.com/s/uRLjjXTUjtBsbRJ0KTvauQ' target='_blank' rel='noopener'>“中国心”，获三国审批</a></td><td>MedWorld器械世界</td><td>医疗器械</td><td>16</td><td>1</td><td>low</td></tr><tr><td>2026-06-12</td><td><a href='https://mp.weixin.qq.com/s/Kk65_s0Q5ohZM4ajZ2CWqw' target='_blank' rel='noopener'>国产血透，85亿跨界收购</a></td><td>赛柏蓝器械</td><td>并购融资</td><td>16</td><td>1</td><td>low</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      Generated from structured monthly report JSON. Original links point to source WeChat articles.
+    </footer>
+  </main>
+</body>
+</html>
